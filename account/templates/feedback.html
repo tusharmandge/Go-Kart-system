@@ -1,0 +1,112 @@
+{% extends "base.html" %}{% load static %}{% block head_title %}FeedBack | {{ block.super }}{% endblock %}
+{% block css %}{% endblock %}{% block content %}
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style xmlns:color="http://www.w3.org/1999/xhtml">
+  table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  border-spacing: 5px;
+  background-color: #f1f1c1;
+}
+</style>
+<script>
+    var success = "{{ success }}";
+    var id = "{{ id }}";
+    console.log(success);
+    $(function () {
+        $('#id').val(id);
+    });
+    if(success == "True")
+    {
+        alert("FeedBack Send Successfully..");
+
+        $.ajax({
+        url: '{% url "account:feedback" %}',
+        type: 'GET',
+        success: function (response) {
+            console.log(response);
+            var id = response["id"];
+            document.getElementById("id").value = id;
+        },
+      });
+    }
+
+</script>
+<br>
+<br>
+<br>
+<br>
+{% if user.is_authenticated and not reply  %}
+<form action="{% url 'account:feedback' %}" method="POST">
+    {% csrf_token %}
+    <input disabled type="hidden" id="id" name="id"><br>
+    Message : <input type="text" name="feedback" required/><br>
+    <input type="submit" name="submit" value="Submit" />
+
+</form>
+{% endif %}
+
+{% if  reply  %}
+
+<table id="myTable" style="width=100%">
+    <tr id="heading" class="ui-widget-header ">
+        <th style="background-color:#000000; color:white;">ID</th>
+        <th style="background-color:#000000; color:white;">User</th>
+        <th style="background-color:#000000; color:white;">Message</th>
+        <th style="background-color:#000000; color:white;">Reply</th>
+        <th style="background-color:#000000; color:white;">#</th>
+    </tr>
+    {% for i in data %}
+    {% with counter=forloop.counter0 %}
+    <tr id="{{ counter }}" class="tbl_row">
+        <td class="id" id="{{i.id}}">{{i.id}}</td>
+        <td class="email" id="{{i.user.username}}">{{i.user.username}}</td>
+        <td class="message">{{i.message}}</td>
+        <td class="reply_message" id="message" width="400px"><div contenteditable></div></td>
+        <td><button id="reply" name="btn"  class="use-address">Send</button> </td>
+    </tr>
+    {% endwith %}
+    {% endfor %}
+</table>
+
+{% endif %}
+
+<script>
+
+    $(".use-address").click(function() {
+        var $row = $(this).closest("tr");    // Find the row
+        var $reply_text = $row.find(".reply_message").text(); // Find the admin reply message
+        var $text = $row.find(".message").text(); // Find the message
+        var $email = $row.find(".email").text(); // Find the email
+        var $id = $row.find(".id").text(); // Find the id
+        var $tbl_row = $(this).closest('tr').attr('id');
+       // $('.tbl_row').('#id');
+        var token = '{{csrf_token}}';
+        $.ajax({
+            type:"POST",
+            headers: { "X-CSRFToken": token },
+            url: '{% url "account:feedback" %}',
+            data: {
+                'id': $id,
+                'email': $email,
+                'reply_text': $reply_text
+            },
+            dataType: 'json',
+            success: function (data) {
+              var send = data["send"];
+              console.log("before if condition");
+              console.log("after if condition");
+              var row = document.getElementById($tbl_row);
+              row.parentNode.removeChild(row);
+
+
+            }
+        });
+    });
+
+
+
+</script>
+
+{% endblock %}{% block script %}{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% load static %}{% block head_title %}FeedBack | {{ block.super }}{% endblock %}
+{% block css %}{% endblock %}{% block content %}
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{% if user.is_authenticated  %}
+{% if news %}
+{% for item in news %}
+     <img src="{{ item.image.url }}" width="200px" height="150px" style="margin-left:30px;margin-top:30px; ;margin-bottom:30px;"> <br/>
+{% endfor %}
+{% endif %}
+{% endif %}
+{% endblock %}

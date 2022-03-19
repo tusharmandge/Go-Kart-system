@@ -1,0 +1,21 @@
+{% autoescape off %}
+Dear {{ user.first_name }},
+
+Welcome to TSSM Institute!
+
+You're almost there! Use the link to activate your account to access our courses. Note that you will not be able to log back into your account until you have activated it.
+
+http://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}
+
+Enjoy learning with TSSM Institute.
+
+--
+Regards
+TSSM Institute Team
+
+If you have any query, contact us
+Email {{ email }}
+Phone No. {{ number }}
+
+This email message was automatically sent by http://{{ domain }} because someone register course from your account.
+{% endautoescape %}

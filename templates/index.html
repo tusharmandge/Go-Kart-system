@@ -1,0 +1,204 @@
+{% extends "base.html" %}{% load static %}{% block head_title %}Home | {{ block.super }}{% endblock %}
+{% block content %}
+
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+    <div class="row" style="margin: 1rem 0 0 0">
+        <div class="col-lg-6 order-lg-1 pb-5">
+            <img src="{% static 'images/Asset 50.svg' %}" alt="logo" style="width: 100%"></div>
+        <div class="col-lg-6 order-lg-0 align-self-lg-center px-lg-5 pb-5 text-center">
+            <h1 class="px-4" style="color:#414141;font-size: 3rem;">Go Cart 2021</h1>
+            <hr style="width: 70px; border: 1px solid rgba(0,0,0,0.23);">
+            <p class="px-3" style="font-size: 24px; color:#777777;">A gateway to technical Advancement</p>
+            <div class="px-3 pl-lg-5" style="text-align: left;">
+                <li style="font-size: small;list-style-type: circle;">Venue: TSSM Institute, 19/15, Erandawane Smt. Khilare Marg, Off Karve     Road, Pune-411004</li>
+                <li style="font-size: small;list-style-type: circle;">Limited Number of seats in each course: 15</li>
+            </div>
+            <a class="btn btn-custom mt-4 px-lg-5 py-3" href="#events" style="border: 0; font-size: 24px; box-shadow: 5px 5px 10px rgba(0,0,0,.50)!important;">Registration Open</a><br><br>
+        </div>
+    </div>
+    <div class="row mt-lg-3" id="events" style="margin: 0; background-color: #1492E6">
+        <div class="col-lg-6 order-lg-0" style="padding:0">
+            <img src="{% static 'images/Asset 51.svg' %}" alt="logo" style="width: 60%"></div>
+        <div class="col-lg-6 order-lg-1 align-self-lg-center px-md-5 px-3 pt-5 text-center">
+            <h2 class="px-3" style="color:#ffffff;font-size: 2.4em">Enhance Your Knowledge<br>Shape Your Future </h2>
+            <hr class="mb-3" style="width: 250px; border-top: 2px solid #ffffff">
+            <h2 class="px-3" style="color:#FFFFFF;font-size: 2em">Internship 2021</h2>
+        </div>
+    </div>
+    <div class="row" style="margin: 0; background-color: #1492E6">
+        <div class="col-lg-12 pb-3 px-3 text-center">
+            <div class="card-deck my-4">{% for data in event_list %}
+                <a class="card mb-4 card-custom {% if forloop.counter|divisibleby:2 %}odd{% else %}even{% endif %}" href="{% url 'event:event_detail' data.slug %}">
+                    <div class="card-body d-flex align-items-center" style="margin: auto">{{ data.event_name }}<br>Branch: {{ data.eligible_branches }}
+                    </div>
+                </a>{% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-12 pb-5 text-center">
+            <a class="btn btn-custom" href="{% url 'event:event_list' %}" style="border: 3px solid #ffffff; padding: .4rem 4rem;">Explore More</a>
+        </div>
+    </div>
+    <link rel="stylesheet" href="{% static 'css/chat_bot_style.css' %}">
+    <link rel="script" href="{% static 'js/chat_bot.js' %}">
+<!--Chat-Bot-Start-->
+<div id="chatApp">
+    <div class="chatBox" id="chatBox">
+        <div class="card" style="box-shadow: none;">
+            <div class="chat-bot">
+                <div class="float toggleChatDialog">
+                    <i class="fa fa-comments my-float" aria-hidden="true"></i>
+                </div>
+            </div>
+            <header class="card-header header-title" style="display: none;">
+                <p class="card-header-title">
+                    <i class="fa fa-circle is-online"></i>
+                    <img src="http://aras.kntu.ac.ir/wp-content/uploads/2019/05/hoodie-.png"
+                         style="width: 30px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chat Bot
+                </p>
+                <a class="card-header-icon">
+              <span class="icon toggleChatDialog">
+                <i class="fa fa-close"></i>
+              </span>
+                </a>
+            </header>
+
+            <div id="chatbox-area" style="display: none;">
+                <div class="card-content chat-content">
+                    <div id="div_content" class="content">
+<!--                        <div class="chat-message-group">-->
+<!--                            <div class="chat-thumb">-->
+<!--                                <figure class="image is-32x32">-->
+<!--                                    <img src="http://aras.kntu.ac.ir/wp-content/uploads/2019/05/hoodie-.png">-->
+<!--                                </figure>-->
+<!--                            </div>-->
+<!--                            <div class="chat-messages">-->
+<!--                                <div class="message">Olá meu nome é Camila</div>-->
+<!--                                <div class="from">Hoje 04:55</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="chat-message-group writer-user">-->
+<!--                            <div class="chat-messages">-->
+<!--                                <div class="message">Olá meu nome é Marinho</div>-->
+<!--                                <div class="from">Hoje 04:55</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="chat-message-group">-->
+<!--                            <div class="chat-thumb">-->
+<!--                                <figure class="image is-32x32">-->
+<!--                                    <img src="http://aras.kntu.ac.ir/wp-content/uploads/2019/05/hoodie-.png">-->
+<!--                                </figure>-->
+<!--                            </div>-->
+<!--                            <div class="chat-messages">-->
+<!--                                <div class="message">Olá meu nome é Marinho</div>-->
+<!--                                <div class="message">Caro marinho</div>-->
+<!--                                <div class="from">Hoje 04:55</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+                <footer class="card-footer" id="chatBox-textbox">
+                    <div style="width: 63%">
+                        <textarea id="chatTextarea" class="chat-textarea" placeholder="Your query..."></textarea>
+                    </div>
+                    <div id="send_btn" class="has-text-centered" style="width: 37%">
+                        <a class="button is-white">send</a></div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $(".toggleChatDialog").click(function () {
+          if ($("#chatbox-area").is(":visible")) {
+            $('#chatbox-area').hide();
+            $('.header-title').hide();
+            $('.card').css('box-shadow', "none");
+            $('.float').show();
+          } else {
+            $('.header-title').show();
+            $('#chatbox-area').show();
+            $('.card').css('box-shadow', " 0 2px 3px rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 10%)");
+            $('.float').hide();
+          }
+          this.chatBoxArea = !this.chatBoxArea;
+        });
+
+        $("#send_btn").click(function() {
+            var message = $("#chatTextarea").val();
+            $("#chatTextarea").val("");
+            var user_message = get_user_message(message);
+            $(".content").append(user_message);
+            $(".content").append(`
+                        <div class="chat-message-group typing_effect">
+                            <div class="typing">Typing</div>
+                            <div class="spinner">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
+                        </div>`);
+            $('.content').animate({scrollTop: $('.content').prop("scrollHeight")}, 500);
+<!--            $('.content').animate({ scrollTop: $(".typing_effect").offset().top }, 1000);-->
+            send_message(message);
+            $('.content').animate({scrollTop: $('.content').prop("scrollHeight")}, 500);
+
+        });
+        var host = window.location.hostname;
+        console.log(host);
+        function send_message(message) {
+            $.ajax({
+            url: 'http://'+host+'/chatbot/send_message/',
+            type: 'POST',
+            data: {
+                'user_message': message,
+            },
+            success: function(data) {
+                $(".typing_effect").hide();
+                var bot_response = get_bot_message(data.message_response);
+                $(".content").append(bot_response);
+            },
+            error: function(err) {
+                alert(err);
+            }
+        });
+        }
+
+        function get_bot_message(message) {
+            return `<div class="chat-message-group">
+                        <div class="chat-thumb">
+                            <figure class="image is-32x32">
+                                <img src="http://aras.kntu.ac.ir/wp-content/uploads/2019/05/hoodie-.png">
+                            </figure>
+                        </div>
+                        <div class="chat-messages">
+                            <div class="message">` + message + `</div>
+                            <div class="from">ChatBot</div>
+                        </div>
+                    </div>`;
+        }
+
+        function get_user_message(message) {
+            return `<div class="chat-message-group writer-user">
+                            <div class="chat-messages">
+                                <div class="message">` + message + `</div>
+                                <div class="from"> User </div>
+                            </div>
+                        </div>`;
+        }
+    });
+</script>
+
+<!--Chat-Bot-End-->
+    {#        <div style="background-color: rgb(0,183,209)">#}
+    {#        <div class="container pt-5 pb-4">#}
+    {#            <h1 style="color: #FFFFFF; font-weight: 100;" class="text-center pb-4">News</h1>#}
+    {#            <p style="border-left: 0.1rem solid #ffffff; font-size: 20px" class="px-5 mb-5 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa excepturi fugiat ipsam iusto magnam natus provident, temporibus vitae? Consectetur consequuntur delectus dolor, ex hic labore optio perferendis quae quidem quisquam!</p>#}
+    {#            <p style="border-right: 0.1rem solid #ffffff; font-size: 20px" class="px-5 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa excepturi fugiat ipsam iusto magnam natus provident, temporibus vitae? Consectetur consequuntur delectus dolor, ex hic labore optio perferendis quae quidem quisquam!</p>#}
+    {#            <div style="color: #FFFFFF; font-size: 90px;" class="text-center">...</div>#}
+    {#        </div>#}
+    {#    </div>#}
+{% endblock %}

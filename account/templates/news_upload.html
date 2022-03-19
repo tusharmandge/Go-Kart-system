@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% load static %}{% block head_title %}FeedBack | {{ block.super }}{% endblock %}
+{% block css %}{% endblock %}{% block content %}
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{% if user.is_authenticated  %}
+<form action="{% url 'account:news' %}" method="POST" enctype = "multipart/form-data">
+    {% csrf_token %}
+    Upload An Image : <input type="file" accept="image/*" name="file" required/><br>
+    <input type="submit" name="submit" value="Submit" />
+
+</form>
+
+<script>
+    var success = "{{success}}";
+    if(success == "True"){
+        alert("Image Saved Successfully..");
+    }
+</script>
+{% endif %}
+{% endblock %}
